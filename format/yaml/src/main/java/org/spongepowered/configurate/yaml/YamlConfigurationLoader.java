@@ -28,8 +28,6 @@ import org.spongepowered.configurate.util.UnmodifiableCollections;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.BufferedReader;
 import java.io.Writer;
@@ -150,6 +148,16 @@ public final class YamlConfigurationLoader extends AbstractConfigurationLoader<C
         }
 
         /**
+         * Gets the node style to be used by the resultant loader.
+         *
+         * @return the node style
+         * @since 4.0.0
+         */
+        public @Nullable NodeStyle nodeStyle() {
+            return this.style;
+        }
+
+        /**
          * Set whether comment handling is enabled on this loader.
          *
          * <p>When comment handling is enabled, comments will be read from files
@@ -175,16 +183,6 @@ public final class YamlConfigurationLoader extends AbstractConfigurationLoader<C
          */
         public boolean commentsEnabled() {
             return this.enableComments;
-        }
-
-        /**
-         * Gets the node style to be used by the resultant loader.
-         *
-         * @return the node style
-         * @since 4.0.0
-         */
-        public @Nullable NodeStyle nodeStyle() {
-            return this.style;
         }
 
         @Override
