@@ -26,6 +26,7 @@ import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.ConfigurationOptions;
 import org.spongepowered.configurate.ScopedConfigurationNode;
 import org.spongepowered.configurate.reference.ConfigurationReference;
+import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.util.UnmodifiableCollections;
 
 import java.io.BufferedReader;
@@ -177,7 +178,7 @@ public abstract class AbstractConfigurationLoader<N extends ScopedConfigurationN
      * @since 4.0.0
      */
     @ForOverride
-    protected abstract void loadInternal(N node, BufferedReader reader) throws ParsingException;
+    protected abstract void loadInternal(N node, BufferedReader reader) throws ParsingException, SerializationException;
 
     @Override
     public void save(final ConfigurationNode node) throws ConfigurateException {

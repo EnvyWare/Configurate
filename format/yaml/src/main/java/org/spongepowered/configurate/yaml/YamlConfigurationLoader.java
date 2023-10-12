@@ -24,6 +24,7 @@ import org.spongepowered.configurate.loader.AbstractConfigurationLoader;
 import org.spongepowered.configurate.loader.CommentHandler;
 import org.spongepowered.configurate.loader.CommentHandlers;
 import org.spongepowered.configurate.loader.LoaderOptionSource;
+import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.util.UnmodifiableCollections;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -91,6 +92,7 @@ public final class YamlConfigurationLoader extends AbstractConfigurationLoader<C
             if (declared != null) {
                 this.style = declared;
             }
+            this.enableComments = options.getBoolean(true, "yaml", "comments-enabled");
         }
 
         /**
@@ -210,11 +212,11 @@ public final class YamlConfigurationLoader extends AbstractConfigurationLoader<C
     }
 
     @Override
-    protected void loadInternal(final CommentedConfigurationNode node, final BufferedReader reader) {
+    protected void loadInternal(final CommentedConfigurationNode node, final BufferedReader reader) throws SerializationException {
         // the constructor needs ConfigurationOptions for the to be created nodes
         // and since it's a thread-local, this won't cause any issues
         this.constructor.get().options = node.options();
-        node.from(this.yaml.get().load(reader));
+        node.set(this.yaml.get().load(reader));
     }
 
     @Override
